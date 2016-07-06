@@ -50,9 +50,10 @@ class Notes {
     public function create(Application $app, Request $req) {
         $conn = $app['db'];
 
+        $now = new DateTime('now', new DateTimeZone('UTC'));
         $note = array(
             'note' => $req->get('note'),
-            'timestamp' => date('Y-m-d H:i:s'),
+            'timestamp' => $now->format('Y-m-d H:i:s'),
         );
 
         $conn->insert('note', $note);
@@ -70,6 +71,12 @@ class Notes {
             $error = array('message' => 'note not found');
             return $app->json($error, 404);
         }
+
+        $dt = $note['timestamp'];
+        $tz = new DateTimeZone("UTC");
+        $dt = DateTime::createFromFormat('Y-m-d H:i:s', $dt, $tz);
+        $timestamp = $dt->getTimestamp();
+        $note['timestamp'] = $timestamp;
 
         return $app->json($note);
     }
