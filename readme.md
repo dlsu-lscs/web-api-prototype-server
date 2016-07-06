@@ -5,9 +5,10 @@ A simple web API demo using the Silex PHP Framework.
 ## Installation
 1. Make sure to have PHP 5.5 or higher, MySQL or MariaDB, and a
    web server (such as Apache) installed.
-2. Install all the dependencies via [Composer](https://getcomposer.org/)
-3. Edit `web/index.php` to properly connect to the database, and
-   configure your web server's document root to point to the `web` folder
+2. Install all the dependencies via [Composer](https://getcomposer.org/).
+3. Set up the database to follow the provided schema (`schema.sql`),
+   edit `web/index.php` to properly connect to the database, and
+   configure the web server's document root to point to the `web` folder.
 
 ## TODO
 - [ ] Turn off debug mode in production
@@ -37,7 +38,7 @@ of the newly added note.
 
 ### GET /notes/{id}
 Retrieves the note with the specified id. Returns a JSON object with
-an id, the note itself, and a timestamp of the last edit. Returns 
+an id, the note itself, and a unix timestamp of the last edit. Returns
 a 404 if a note with the specified id cannot be found.
 
 ### PUT /notes/{id}
