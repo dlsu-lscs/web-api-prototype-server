@@ -22,10 +22,10 @@ $app->get('/', function() use($app) {
 });
 
 $app->get('/notes', 'Notes::index');
-$app->post('/note', 'Notes::create');
-$app->get('/note/{id}', 'Notes::retrieve');
-$app->put('/note/{id}', 'Notes::update');
-$app->delete('/note/{id}', 'Notes::delete');
+$app->post('/notes', 'Notes::create');
+$app->get('/notes/{id}', 'Notes::retrieve');
+$app->put('/notes/{id}', 'Notes::update');
+$app->delete('/notes/{id}', 'Notes::delete');
 
 $app['debug'] = true;
 $app->run();
