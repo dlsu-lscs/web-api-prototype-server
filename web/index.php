@@ -59,6 +59,10 @@ $app->get('/note/{id}', function($id) use($app) {
     $query = "SELECT * FROM note WHERE id = ?";
 
     $note = $conn->fetchAssoc($query, array($id));
+    if (!$note) {
+        $error = array('message' => 'note not found');
+        return $app->json($error, 404);
+    }
 
     return $app->json($note);
 });
@@ -72,7 +76,11 @@ $app->put('/note/{id}', function($id, Request $req) use($app) {
         'timestamp' => date('Y-m-d H:i:s'),
     );
 
-    $conn->update('note', $note, array('id' => $id));
+    $ok = $conn->update('note', $note, array('id' => $id));
+    if (!$ok) {
+        $error = array('message' => 'note not found');
+        return $app->json($error, 404);
+    }
 
     return $app->json('ok');
 });
@@ -81,7 +89,11 @@ $app->put('/note/{id}', function($id, Request $req) use($app) {
 $app->delete('/note/{id}', function($id) use($app) {
     $conn = $app['db'];
 
-    $conn->delete('note', array('id' => $id));
+    $ok = $conn->delete('note', array('id' => $id));
+    if (!$ok) {
+        $error = array('message' => 'note not found');
+        return $app->json($error, 404);
+    }
 
     return $app->json('ok');
 });
